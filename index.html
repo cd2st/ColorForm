@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ColorForm</title>
+  <meta name="description" content="Choose a ColorForm puzzle and crack the code.">
+  <meta name="theme-color" content="#080d18">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080d18'/%3E%3Ccircle cx='22' cy='22' r='11' fill='%232787ff'/%3E%3Cpath d='M42 11 54 32 30 32Z' fill='%23ef4545'/%3E%3Crect x='15' y='39' width='20' height='20' rx='3' fill='%23ffd229'/%3E%3Cpath d='m46 39 12 10-12 10-12-10Z' fill='%239b5de5'/%3E%3C/svg%3E">
+  <style>
+    :root{
+      color-scheme:dark;
+      --ink:#f5f9ff;
+      --muted:#aab9ce;
+      --panel:#111c2d;
+      --panel-2:#16243a;
+      --line:#334963;
+      --cyan:#5ee7ff;
+    }
+    *{box-sizing:border-box}
+    html{min-height:100%;background:#080d18}
+    body{
+      min-height:100vh;
+      margin:0;
+      color:var(--ink);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%,#173452 0,transparent 32rem),
+        radial-gradient(circle at 88% 90%,#271d50 0,transparent 34rem),
+        #080d18;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.24;
+      background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom,#000,transparent 78%);
+    }
+    main{
+      width:min(980px,calc(100% - 28px));
+      min-height:100vh;
+      margin:auto;
+      padding:clamp(28px,6vh,64px) 0 32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+    }
+    header{text-align:center;margin-bottom:clamp(24px,5vh,42px)}
+    .logo{
+      display:block;
+      width:min(620px,92%);
+      height:auto;
+      margin:0 auto;
+      filter:drop-shadow(0 18px 36px #0009);
+    }
+    h1{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+    .choices{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .game{
+      min-height:188px;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:linear-gradient(145deg,#16243aee,#0f1828ee);
+      box-shadow:0 18px 52px #0006,inset 0 1px #ffffff0b;
+      display:flex;
+      flex-direction:column;
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+    }
+    .game:hover{
+      transform:translateY(-3px);
+      border-color:#5f799c;
+      box-shadow:0 22px 60px #0008,0 0 0 1px #5ee7ff20;
+    }
+    .level{
+      color:var(--cyan);
+      font-size:.78rem;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    h2{margin:8px 0 6px;font-size:clamp(1.25rem,3vw,1.55rem);line-height:1.15}
+    p{margin:0 0 18px;color:var(--muted);font-size:1rem;line-height:1.45}
+    .play{
+      margin-top:auto;
+      min-height:46px;
+      padding:12px 16px;
+      border:1px solid #657d9f;
+      border-radius:11px;
+      color:white;
+      background:#1a2a43;
+      font-weight:900;
+      letter-spacing:.055em;
+      text-align:center;
+      text-decoration:none;
+      display:grid;
+      place-items:center;
+      transition:background .16s ease,border-color .16s ease,color .16s ease;
+    }
+    .play:hover,.play:focus-visible{background:#213958;border-color:var(--cyan);color:#fff}
+    .play:focus-visible{outline:3px solid #5ee7ff55;outline-offset:3px}
+    .basic{border-top-color:#ffd229}
+    .no-repeat{border-top-color:#5ee7ff}
+    .may-repeat{border-top-color:#9b5de5}
+    .friend{border-top-color:#ef4545}
+    footer{text-align:center;color:#71849e;font-size:.82rem;margin-top:24px}
+    @media(max-width:680px){
+      main{justify-content:flex-start;padding-top:28px}
+      header{margin-bottom:22px}
+      .choices{grid-template-columns:1fr;gap:10px}
+      .game{min-height:154px;padding:18px}
+    }
+    @media(prefers-reduced-motion:reduce){.game,.play{transition:none}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img class="logo" src="assets/colorform-logo.png" alt="ColorForm">
+      <h1>ColorForm</h1>
+    </header>
+    <section class="choices" aria-label="Choose a ColorForm game">
+      <article class="game basic">
+        <span class="level">Basic</span>
+        <h2>Crack the Code</h2>
+        <p>Start with position-by-position feedback for shapes, colors, and exact combinations.</p>
+        <a class="play" href="https://cd2st.github.io/ColorForm-Basic/">PLAY BASIC</a>
+      </article>
+      <article class="game no-repeat">
+        <span class="level">Advanced</span>
+        <h2>No Repeats</h2>
+        <p>Use grouped feedback to solve a code with no repeated shapes or colors.</p>
+        <a class="play" href="https://cd2st.github.io/ColorForm-Advanced-no-repeats/">PLAY NO REPEATS</a>
+      </article>
+      <article class="game may-repeat">
+        <span class="level">Advanced</span>
+        <h2>May Repeat</h2>
+        <p>Use grouped feedback while allowing shapes, colors, or both to repeat.</p>
+        <a class="play" href="https://cd2st.github.io/ColorForm-Advanced-may-repeat/">PLAY MAY REPEAT</a>
+      </article>
+      <article class="game friend">
+        <span class="level">Create &amp; Share</span>
+        <h2>Friend Challenge</h2>
+        <p>Build a custom four-piece code, copy the link, and challenge a friend to solve it.</p>
+        <a class="play" href="https://cd2st.github.io/ColorForm-Friend-Challenge/">CREATE A CHALLENGE</a>
+      </article>
+    </section>
+    <footer>Four ways to play. One code to crack.</footer>
+  </main>
+</body>
+</html>
